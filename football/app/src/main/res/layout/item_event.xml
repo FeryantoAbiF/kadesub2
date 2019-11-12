@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="3"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/homeNameTV"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:paddingTop="9dp"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dateEventTV"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="3"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="31sp"
+                    android:layout_width="0dp"
+                    android:textStyle="bold"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/homeScoreTV"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:textSize="17sp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="VS"/>
+                <TextView
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="31sp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/awayScoreTV"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/awaynameTV"/>
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
