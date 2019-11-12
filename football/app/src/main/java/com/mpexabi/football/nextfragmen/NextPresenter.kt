@@ -17,7 +17,7 @@ class NextPresenter (private val context: Context,private val view : NextView, p
             val connect : TheSportDBApi = apiRepository.getUrl().create(TheSportDBApi::class.java)
             connect.getNextMatch(liga).enqueue(object : Callback<MatchResponse> {
                 override fun onFailure(call: Call<MatchResponse>, t: Throwable) {
-
+                    t.printStackTrace()
                 }
 
                 override fun onResponse(call: Call<MatchResponse>, response: Response<MatchResponse>) {
@@ -26,7 +26,7 @@ class NextPresenter (private val context: Context,private val view : NextView, p
                     if(get == null){
                         showToast(context)
                     }else{
-                        view.showList(get!!)
+                        view.showList(get)
 
                     }
 
