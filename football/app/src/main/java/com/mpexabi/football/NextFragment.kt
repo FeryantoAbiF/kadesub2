@@ -21,30 +21,30 @@ import com.mpexabi.football.prevfragment.PrevPresenter
  */
 class NextFragment : Fragment(), NextView {
 
-    private var recycle: RecyclerView? = null
-    private var adapter: MatchAdapter? = null
+    private lateinit var recycle: RecyclerView
+    private lateinit var adapter: MatchAdapter
     private lateinit var presenter: NextPresenter
     private var match: MutableList<Match> = mutableListOf()
-    private var progress : ProgressBar? = null
+    private lateinit var progress : ProgressBar
     private lateinit var pref: ShredPref
 
     override fun visibleLoad() {
-        progress!!.visible()
+        progress.visible()
     }
 
     override fun invisibleLoad() {
-        progress!!.invisible()
+        progress.invisible()
     }
 
     override fun showList(data: List<Match>) {
         match.clear()
         match.addAll(data)
         adapter = MatchAdapter(match,{itemMatch :Match -> itemMatchClicked(itemMatch)})
-        recycle!!.adapter = adapter
-        recycle!!.setHasFixedSize(true)
+        recycle.adapter = adapter
+        recycle.setHasFixedSize(true)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this.activity)
-        recycle!!.layoutManager = layoutManager
-        adapter!!.notifyDataSetChanged()
+        recycle.layoutManager = layoutManager
+        adapter.notifyDataSetChanged()
     }
 
     private fun itemMatchClicked(itemMatch: Match) {
@@ -62,7 +62,6 @@ class NextFragment : Fragment(), NextView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         recycle = view.findViewById(R.id.rv_next)
         progress = view.findViewById(R.id.progressNext)
         pref = ShredPref(this.activity!!)
