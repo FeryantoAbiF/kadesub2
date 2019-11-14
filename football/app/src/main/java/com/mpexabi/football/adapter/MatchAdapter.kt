@@ -11,53 +11,51 @@ import com.mpexabi.football.model.Match
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
-class MatchAdapter(private val match: List<Match>, private val listener : (Match) -> Unit)
-    : RecyclerView.Adapter<ViewHolder>() {
-
-    override fun getItemCount(): Int = match.size
+class MatchAdapter(private var match: List<Match>,
+                   private val listener : (Match) -> Unit) : RecyclerView.Adapter<MatchAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(match[position],listener)    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_event, parent, false))
-
-}
-
-class ViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
-
-    val homeTeam: TextView = itemview.findViewById(R.id.homeNameTV)
-    val awayTeam : TextView = itemview.findViewById(R.id.awaynameTV)
-    val tgl : TextView = itemview.findViewById(R.id.dateEventTV)
-    val scoreHome : TextView = itemview.findViewById(R.id.homeScoreTV)
-    val scoreAway : TextView = itemview.findViewById(R.id.awayScoreTV)
-
-    @SuppressLint("SimpleDateFormat")
-    fun bindItem(match: Match, listener: (Match) -> Unit) {
-        val getDate : String = match.dateEvent
-
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-        try {
-            val date = simpleDateFormat.parse(getDate)
-            val newFormat = SimpleDateFormat("EEEE, MMM dd, yyyy")
-            val dateFix = newFormat.format(date)
-            tgl.text = dateFix
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-
-        scoreAway.text = match.intAwayScore
-        scoreHome.text = match.intHomeScore
-
-        awayTeam.text = match.strAwayTeam
-        homeTeam.text = match.strHomeTeam
-
-        itemView.setOnClickListener { listener(match)
+        holder.bindItem(match[position],listener)
     }
 
-}
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_event, viewGroup, false)
+        return ViewHolder(view)
+    }
+    override fun getItemCount(): Int = match.size
 
+    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
+        val homeTeam: TextView = itemView.findViewById(R.id.homeNameTV)
+        val awayTeam : TextView = itemView.findViewById(R.id.awaynameTV)
+        val dateMatch : TextView = itemView.findViewById(R.id.dateEventTV)
+        val scoreHome : TextView = itemView.findViewById(R.id.homeScoreTV)
+        val scoreAway : TextView = itemView.findViewById(R.id.awayScoreTV)
+
+        @SuppressLint("SimpleDateFormat")
+        fun bindItem(match: Match, listener: (Match) -> Unit) {
+
+            scoreAway.text = match.awayScore
+            scoreHome.text = match.homeScore
+            awayTeam.text = match.awayTeam
+            homeTeam.text = match.homeTeam
+
+            val getDate : String? = match.dateEvent
+
+            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+            try {
+                val date = simpleDateFormat.parse(getDate)
+                val new = SimpleDateFormat("EEEE, MMM dd, yyyy")
+                val dateFix = new.format(date)
+                dateMatch.text = dateFix
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+
+            itemView.setOnClickListener { listener(match) }
+        }
+
+    }
 
 
 }

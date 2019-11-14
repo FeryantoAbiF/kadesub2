@@ -21,31 +21,33 @@ import com.mpexabi.football.prevfragment.PrevView
 class PrevFragment : Fragment(), PrevView {
 
     override fun visibleLoad() {
-        progress!!.visible()
+        progressBar.visible()
     }
 
     override fun invisibleLoad() {
-        progress!!.invisible()
+        progressBar.invisible()
     }
 
     override fun showList(data: List<Match>) {
         match.clear()
         match.addAll(data)
-        adapter = MatchAdapter(match,{itemMatch :Match -> itemMatchClicked(itemMatch)})
-        recycle!!.adapter = adapter
+
+        matchAdapter = MatchAdapter(match, { itemMatch: Match -> itemMatchClicked(itemMatch) })
+
+        recyclerView.adapter = matchAdapter
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this.activity)
-        recycle!!.layoutManager = layoutManager
+        recyclerView.layoutManager = layoutManager
     }
 
     private fun itemMatchClicked(itemMatch: Match) {
 
     }
 
-    private var recycle: RecyclerView? = null
-    private var adapter: MatchAdapter? = null
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var matchAdapter: MatchAdapter
     private lateinit var presenter: PrevPresenter
     private var match: MutableList<Match> = mutableListOf()
-    private var progress : ProgressBar? = null
+    private lateinit var progressBar: ProgressBar
     private lateinit var pref: ShredPref
 
 
@@ -54,17 +56,22 @@ class PrevFragment : Fragment(), PrevView {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_prev, container, false)
-        recycle = view.findViewById(R.id.rv_prev)
-        progress = view.findViewById(R.id.proggresPrev)
+        return inflater.inflate(R.layout.fragment_prev, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerView = view.findViewById(R.id.rv_prev)
+        progressBar = view.findViewById(R.id.proggresPrev)
         pref = ShredPref(this.activity!!)
         showMatch()
-        return view
     }
 
     private fun showMatch() {
         val request = ApiRepository()
-        presenter = PrevPresenter(this.activity!!,this, request)
+        presenter = PrevPresenter(this.activity!!, this, request)
         presenter.getPrevList(pref.getIdLiga())
     }
 
