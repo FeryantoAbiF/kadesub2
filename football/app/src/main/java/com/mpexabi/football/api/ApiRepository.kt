@@ -8,7 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiRepository {
     fun getUrl(): Retrofit {
-        var retrofitApi: Retrofit?
+
+        val retrofitApi: Retrofit?
         val gson = GsonBuilder()
             .setLenient()
             .create()

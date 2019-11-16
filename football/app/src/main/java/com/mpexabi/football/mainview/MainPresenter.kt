@@ -15,6 +15,7 @@ class MainPresenter(private var view: MainView , private var apiRepository: ApiR
         val connect: TheSportDBApi = apiRepository.getUrl().create(TheSportDBApi::class.java)
         connect.getDetailLeugue(id).enqueue(object : Callback<LeagueResponse> {
             override fun onFailure(call: Call<LeagueResponse>, t: Throwable) {
+            t.printStackTrace()
 
             }
 

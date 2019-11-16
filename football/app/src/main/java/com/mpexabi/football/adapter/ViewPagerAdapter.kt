@@ -3,8 +3,8 @@ package com.mpexabi.football.adapter
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.mpexabi.football.NextFragment
-import com.mpexabi.football.PrevFragment
+import com.mpexabi.football.nextfragmen.NextFragment
+import com.mpexabi.football.prevfragment.PrevFragment
 
 class ViewPagerAdapter (fm: FragmentManager): FragmentPagerAdapter(fm) {
 

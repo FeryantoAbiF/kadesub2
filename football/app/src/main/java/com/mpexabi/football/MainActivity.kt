@@ -39,10 +39,10 @@ class MainActivity : AppCompatActivity(){
             items.add(League(name[i],image.getResourceId(i, 0),idLiga[i]))
         }
         adapter =RecyclerAdapter(this,items,{ liga : League -> getItemClick(liga)})
-        recyclerView!!.adapter = adapter
-        recyclerView!!.setHasFixedSize(true)
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
         val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(this)
-        recyclerView!!.layoutManager = layoutManager
+        recyclerView.layoutManager = layoutManager
         adapter.notifyDataSetChanged()
 
 

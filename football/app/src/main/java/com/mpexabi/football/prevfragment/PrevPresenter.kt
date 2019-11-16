@@ -24,7 +24,8 @@ class PrevPresenter (private val context: Context, private val view : PrevView, 
         val connect : TheSportDBApi = apiRepository.getUrl().create(TheSportDBApi::class.java)
         connect.getLastMatch(league).enqueue(object : Callback<MatchResponse> {
             override fun onFailure(call: Call<MatchResponse>, t: Throwable) {
-                t.printStackTrace() }
+                t.printStackTrace()
+            }
 
             override fun onResponse(
                 call: Call<MatchResponse>,
