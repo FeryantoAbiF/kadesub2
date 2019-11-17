@@ -48,5 +48,11 @@
     <string name="yellow_card">Yellow Card</string>
     <string name="awayimage">awayimage</string>
     <string name="homeimage">homeImage</string>
+    <string name="team_name_away">team name away</string>
+    <string name="imageteamaway">imageTeamAway</string>
+    <string name="pemisah">:</string>
+    <string name="team_name_home">team name home</string>
+    <string name="imagehometeam">imageHomeTeam</string>
+    <string name="imageevent">imageEvent</string>
 
 </resources>

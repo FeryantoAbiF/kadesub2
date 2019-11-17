@@ -16,7 +16,9 @@ data class Match(
     @SerializedName("strLeague")
     var league: String? = null,
 
-    // -- HOME TEAM --
+    @SerializedName("strThumb")
+    var strThumb: String? = null,
+
     @SerializedName("strHomeTeam")
     var homeTeam: String? = null,
 
@@ -34,9 +36,6 @@ data class Match(
 
     @SerializedName("idHomeTeam")
     var homeTeamId: String? = null,
-
-
-    // -- AWAY TEAM --
 
     @SerializedName("idAwayTeam")
     var awayTeamId: String? = null,

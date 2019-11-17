@@ -31,6 +31,7 @@ class Main3Activity : AppCompatActivity(), DetailView {
     private lateinit var leagueName: TextView
     private lateinit var imageHome: ImageView
     private lateinit var imageAway: ImageView
+    private lateinit var imageBanner: ImageView
     private var progressBar: ProgressBar? = null
 
 
@@ -54,6 +55,11 @@ class Main3Activity : AppCompatActivity(), DetailView {
         homeYellowCard.text = event.homeYellowCards
         awayYellowCard.text = event.awayYellowCards
         leagueName.text = event.league
+
+        Picasso.get()
+            .load(event.strThumb)
+            .error(R.mipmap.ic_launcher)
+            .into(img_poster)
     }
 
     override fun showHomeTeam(teams: TeamLeague) {
@@ -86,7 +92,7 @@ class Main3Activity : AppCompatActivity(), DetailView {
         homeYellowCard = findViewById(R.id.homeYellowCardDetail)
         awayYellowCard = findViewById(R.id.awayYellowCardDetail)
         progressBar = findViewById(R.id.progressDetail)
-        vs.text = "VS"
+        imageBanner = findViewById(R.id.img_poster)
 
         val apiRepository = ApiRepository()
         presenter = DetailPresenter(this, apiRepository)
