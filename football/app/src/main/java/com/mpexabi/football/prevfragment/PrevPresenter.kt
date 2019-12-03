@@ -14,7 +14,7 @@ import retrofit2.Response
 class PrevPresenter (private val context: Context, private val view : PrevView, private val apiRepository: ApiRepository) {
 
     fun message(context: Context) {
-        Toast.makeText(context, "Previous Match", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Display The Previous Match", Toast.LENGTH_SHORT).show()
     }
 
     fun getPrevList(league : String){
@@ -41,6 +41,34 @@ class PrevPresenter (private val context: Context, private val view : PrevView, 
 
             }
 
+        })
+    }
+
+    fun getTeamSearch(query : String) {
+        view.visibleLoad()
+        val connect: TheSportDBApi = apiRepository.getUrl().create(TheSportDBApi::class.java)
+        connect.getSearchMatch(query).enqueue(object : Callback<MatchResponse> {
+
+            override fun onFailure(call: Call<MatchResponse>, t: Throwable) {
+                t.printStackTrace()
+
+            }
+
+            override fun onResponse(
+                call: Call<MatchResponse>,
+                response: Response<MatchResponse>) {
+
+                view.invisibleLoad()
+                val get: List<Match>? = response.body()!!.event
+
+                if (get == null) {
+                    message(context)
+                    Log.e("DATA ShowList",get?.size.toString())
+                } else {
+                    view.showList(get)
+
+                }
+            }
         })
     }
 

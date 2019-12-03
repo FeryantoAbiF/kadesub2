@@ -24,7 +24,6 @@ class DetailPresenter (private var view : DetailView , private var apiRepository
             override fun onResponse(call: Call<MatchResponse>, response: Response<MatchResponse>) {
                 val getDetail : Match = response.body()!!.events.get(0)
                 view.showDetailEvent(getDetail)
-//                Log.d("tag", "responsennya ${getDetail.strFilename}")
                 view.hideloading()
 
             }

@@ -11,7 +11,7 @@ import com.mpexabi.football.R
 import com.mpexabi.football.model.League
 import com.squareup.picasso.Picasso
 
-class RecyclerAdapter(private val context: Context, private val items: List<League>,
+class RecyclerAdapter( private val items: List<League>,
                       private val listener: (League) -> Unit) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -19,7 +19,7 @@ class RecyclerAdapter(private val context: Context, private val items: List<Leag
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_league, parent, false))
+        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_league, parent, false))
 
 
     override fun getItemCount(): Int = items.size

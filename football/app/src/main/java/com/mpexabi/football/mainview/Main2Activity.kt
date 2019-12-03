@@ -1,10 +1,7 @@
 package com.mpexabi.football.mainview
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -67,21 +64,21 @@ class Main2Activity : AppCompatActivity(), MainView {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.search_item, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.searchView) {
-//            startActivity(Intent(this, CariActivity::class.java))
-            return true
-        }else  if (item.itemId == android.R.id.home){
-            onBackPressed()
-        }
-
-        return super.onOptionsItemSelected(item)
-
-    }
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        menuInflater.inflate(R.menu.search_item, menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.searchView) {
+////            startActivity(Intent(this, CariActivity::class.java))
+//            return true
+//        }else  if (item.itemId == android.R.id.home){
+//            onBackPressed()
+//        }
+//
+//        return super.onOptionsItemSelected(item)
+//
+//    }
 
 }

@@ -20,7 +20,7 @@ class ApiRepository {
         httpClient.addInterceptor(log)
 
         retrofitApi = Retrofit.Builder()
-            .baseUrl("https://www.thesportsdb.com/")
+            .baseUrl("https://www.thesportsdb.com/api/v1/json/1/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(httpClient.build())
             .build()

@@ -8,27 +8,27 @@ import retrofit2.http.Query
 
 interface TheSportDBApi {
 
-    @GET("api/v1/json/1/lookupevent.php")
+    @GET("lookupevent.php")
     fun getDetailEvent(@Query("id") id_event : String)
             : Call<MatchResponse>
 
-    @GET("api/v1/json/1/lookupteam.php")
+    @GET("lookupteam.php")
     fun getDetailTeam(@Query("id") id_team : String)
             : Call<MatchResponse>
 
-    @GET("api/v1/json/1/lookupleague.php")
+    @GET("lookupleague.php")
     fun getDetailLeugue(@Query("id") id_league : String)
             : Call<LeagueResponse>
 
-    @GET("api/v1/json/1/eventsnextleague.php")
+    @GET("eventsnextleague.php")
     fun getNextMatch(@Query("id")id_liga : String)
             : Call<MatchResponse>
 
-    @GET("api/v1/json/1/eventspastleague.php")
+    @GET("eventspastleague.php")
     fun getLastMatch(@Query("id") id_liga : String)
             : Call<MatchResponse>
 
-    @GET("api/v1/json/1/searchevents.php")
+    @GET("searchevents.php")
     fun getSearchMatch(@Query("e") query : String)
             : Call<MatchResponse>
 

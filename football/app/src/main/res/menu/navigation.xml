@@ -7,8 +7,8 @@
         android:title="League" />
 
     <item
-        android:id="@+id/navigation_match_last"
-        android:icon="@drawable/ic_action_name"
-        android:title="Matches" />
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_favorites"
+        android:title="Favorite" />
 
 </menu>
