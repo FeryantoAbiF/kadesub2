@@ -13,7 +13,6 @@ import android.widget.ProgressBar
 import com.mlsdev.animatedrv.AnimatedRecyclerView
 import com.mpexabi.football.adapter.FavoritePrevAdapter
 import com.mpexabi.football.database.FavoritePrev
-import com.mpexabi.football.database.database
 import com.mpexabi.football.detailview.Main3Activity
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select

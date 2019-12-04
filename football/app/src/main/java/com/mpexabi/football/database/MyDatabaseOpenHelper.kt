@@ -2,6 +2,8 @@ package com.mpexabi.football
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import com.mpexabi.football.database.FavoriteNext
+import com.mpexabi.football.database.FavoritePrev
 import org.jetbrains.anko.db.*
 
 class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "FavoriteTeam.db", null, 1) {
@@ -22,29 +24,29 @@ class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "Favorit
     override fun onCreate(db: SQLiteDatabase?) {
 
         db?.createTable(
-            FavoriteModelNext.TABLE_FAVORITE_NEXT, true,
-            FavoriteModelNext.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
-            FavoriteModelNext.ID_EVENT to TEXT + UNIQUE,
-            FavoriteModelNext.HOME_TEAM to TEXT,
-            FavoriteModelNext.AWAY_TEAM to TEXT,
-            FavoriteModelNext.TANGGAL to TEXT,
-            FavoriteModelNext.SCORE_HOME to TEXT,
-            FavoriteModelNext.SCORE_AWAY to TEXT,
-            FavoriteModelNext.ID_HOME_TEAM to TEXT,
-            FavoriteModelNext.ID_AWAY_TEAM to TEXT
+            FavoriteNext.TABLE_FAVORITE_NEXT, true,
+            FavoriteNext.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+            FavoriteNext.ID_EVENT to TEXT + UNIQUE,
+            FavoriteNext.HOME_TEAM to TEXT,
+            FavoriteNext.AWAY_TEAM to TEXT,
+            FavoriteNext.TANGGAL to TEXT,
+            FavoriteNext.SCORE_HOME to TEXT,
+            FavoriteNext.SCORE_AWAY to TEXT,
+            FavoriteNext.ID_HOME_TEAM to TEXT,
+            FavoriteNext.ID_AWAY_TEAM to TEXT
         )
 
         db?.createTable(
-            FavoriteModelPrev.TABLE_FAVORITE_PREV, true,
-            FavoriteModelPrev.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
-            FavoriteModelPrev.ID_EVENT to TEXT + UNIQUE,
-            FavoriteModelPrev.HOME_TEAM to TEXT,
-            FavoriteModelPrev.AWAY_TEAM to TEXT,
-            FavoriteModelPrev.TANGGAL to TEXT,
-            FavoriteModelPrev.SCORE_HOME to TEXT,
-            FavoriteModelPrev.SCORE_AWAY to TEXT,
-            FavoriteModelPrev.ID_HOME_TEAM to TEXT,
-            FavoriteModelPrev.ID_AWAY_TEAM to TEXT
+            FavoritePrev.TABLE_FAVORITE_PREV, true,
+            FavoritePrev.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+            FavoritePrev.ID_EVENT to TEXT + UNIQUE,
+            FavoritePrev.HOME_TEAM to TEXT,
+            FavoritePrev.AWAY_TEAM to TEXT,
+            FavoritePrev.TANGGAL to TEXT,
+            FavoritePrev.SCORE_HOME to TEXT,
+            FavoritePrev.SCORE_AWAY to TEXT,
+            FavoritePrev.ID_HOME_TEAM to TEXT,
+            FavoritePrev.ID_AWAY_TEAM to TEXT
         )
 
     }
@@ -52,8 +54,8 @@ class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "Favorit
 
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        db?.dropTable(FavoriteModelNext.TABLE_FAVORITE_NEXT, true)
-        db?.dropTable(FavoriteModelPrev.TABLE_FAVORITE_PREV,true)
+        db?.dropTable(FavoriteNext.TABLE_FAVORITE_NEXT, true)
+        db?.dropTable(FavoritePrev.TABLE_FAVORITE_PREV,true)
     }
 
 }

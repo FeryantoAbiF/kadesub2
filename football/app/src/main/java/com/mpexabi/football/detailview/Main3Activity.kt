@@ -1,22 +1,38 @@
-package com.mpexabi.football
+package com.mpexabi.football.detailview
 
+import android.database.sqlite.SQLiteConstraintException
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import com.mpexabi.football.*
 import com.mpexabi.football.api.ApiRepository
+import com.mpexabi.football.database.FavoriteNext
+import com.mpexabi.football.database.FavoritePrev
 import com.mpexabi.football.model.Match
 import com.mpexabi.football.model.TeamLeague
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main3.*
+import org.jetbrains.anko.db.classParser
+import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
+import org.jetbrains.anko.db.select
 
 class Main3Activity : AppCompatActivity(), DetailView {
 
-    private var id_event: String? = null
+    private lateinit var id_event: String
     private var id_home: String? = null
     private var id_away: String? = null
     private lateinit var presenter: DetailPresenter
+
+    private var menuItem: Menu? = null
+    private var isFavorite: Boolean = false
+    private var matchGo: Match? = null
 
     private lateinit var scoreHome: TextView
     private lateinit var scoreAway: TextView
@@ -100,9 +116,133 @@ class Main3Activity : AppCompatActivity(), DetailView {
         id_home = intent.getStringExtra("id_home")
         id_away = intent.getStringExtra("id_away")
 
-        presenter.getDetailMatch(id_event!!)
+        presenter.getDetailMatch(id_event)
         presenter.getDetailHomeTeam(id_home!!)
         presenter.getDetailAwayTeam(id_away!!)
 
+        favoriteState()
+        favoriteStatePref()
+
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.detail_menu, menu)
+        menuItem = menu
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            R.id.add_to_favorite -> {
+                if (isFavorite) removeFromFavorite() else  addToFavorite()
+
+                isFavorite = !isFavorite
+                setFavorite()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setFavorite() {
+        if (isFavorite) {
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star)
+        } else {
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_border)
+        }    }
+
+    private fun addToFavorite() {
+        if (matchGo?.homeScore == null) {
+            try {
+                database.use {
+                    insert(
+                        FavoriteNext.TABLE_FAVORITE_NEXT,
+                        FavoriteNext.ID_EVENT to matchGo?.idEvent,
+                        FavoriteNext.AWAY_TEAM to matchGo?.awayTeam,
+                        FavoriteNext.TANGGAL to matchGo?.dateEvent,
+                        FavoriteNext.SCORE_HOME to matchGo?.homeScore,
+                        FavoriteNext.SCORE_AWAY to matchGo?.awayScore,
+                        FavoriteNext.ID_HOME_TEAM to matchGo?.homeTeamId,
+                        FavoriteNext.ID_AWAY_TEAM to matchGo?.awayTeamId
+
+
+                    )
+                }
+                Toast.makeText(this, "Data Next Match Berhasil di Tambahkan", Toast.LENGTH_SHORT).show()
+            } catch (e: SQLiteConstraintException) {
+
+            }
+        } else {
+            try {
+                database.use {
+                    insert(
+                        FavoritePrev.TABLE_FAVORITE_PREV,
+                        FavoritePrev.ID_EVENT to matchGo?.idEvent,
+                        FavoritePrev.AWAY_TEAM to matchGo?.awayTeam,
+                        FavoritePrev.TANGGAL to matchGo?.dateEvent,
+                        FavoritePrev.SCORE_HOME to matchGo?.homeScore,
+                        FavoritePrev.SCORE_AWAY to matchGo?.awayScore,
+                        FavoritePrev.ID_HOME_TEAM to matchGo?.homeTeamId,
+                        FavoritePrev.ID_AWAY_TEAM to matchGo?.awayTeamId
+
+
+                    )
+                }
+                Toast.makeText(this, "Data Prev Match Berhasil di Tambahkan", Toast.LENGTH_SHORT).show()
+
+            } catch (e: SQLiteConstraintException) {
+
+            }
+        }
+
+    }
+
+    private fun removeFromFavorite() {
+        if (matchGo?.homeScore == null) {
+            try {
+                database.use {
+                    delete(FavoriteNext.TABLE_FAVORITE_NEXT, "(ID_EVENT = {id})", "id" to id_event)
+                }
+                Toast.makeText(this, "Berhasil menghapus Data", Toast.LENGTH_SHORT).show()
+
+            } catch (e: SQLiteConstraintException) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            try {
+                database.use {
+                    delete(FavoritePrev.TABLE_FAVORITE_PREV, "(ID_EVENT = {id})", "id" to id_event)
+                }
+                Toast.makeText(this, "Berhasil menghapus Data", Toast.LENGTH_SHORT).show()
+
+            } catch (e: SQLiteConstraintException) {
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    private fun favoriteState() {
+        database.use {
+            val result = select(FavoriteNext.TABLE_FAVORITE_NEXT)
+                .whereArgs("(ID_EVENT = {id})", "id" to id_event)
+            val favorite = result.parseList(classParser<FavoriteNext>())
+            if (!favorite.isEmpty()) isFavorite = true
+        }
+    }
+
+    private fun favoriteStatePref() {
+        database.use {
+            val result = select(FavoritePrev.TABLE_FAVORITE_PREV)
+                .whereArgs("(ID_EVENT = {id})", "id" to id_event)
+            val favorite = result.parseList(classParser<FavoritePrev>())
+            if (!favorite.isEmpty()) isFavorite = true
+        }
+    }
+
 }

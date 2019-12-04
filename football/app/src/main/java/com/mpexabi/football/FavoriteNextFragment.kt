@@ -13,9 +13,7 @@ import android.widget.ProgressBar
 import com.mlsdev.animatedrv.AnimatedRecyclerView
 import com.mpexabi.football.adapter.FavoriteNextAdapter
 import com.mpexabi.football.database.FavoriteNext
-import com.mpexabi.football.database.database
 import com.mpexabi.football.detailview.Main3Activity
-import com.mpexabi.football.model.League
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
 

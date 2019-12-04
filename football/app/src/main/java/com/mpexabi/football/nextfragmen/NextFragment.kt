@@ -11,9 +11,9 @@ import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.mpexabi.football.*
-import com.mpexabi.football.detailview.Main3Activity
 import com.mpexabi.football.adapter.MatchAdapter
 import com.mpexabi.football.api.ApiRepository
+import com.mpexabi.football.detailview.Main3Activity
 import com.mpexabi.football.model.Match
 
 /**
